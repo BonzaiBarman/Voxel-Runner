@@ -6,6 +6,9 @@ public class PathGeneration : MonoBehaviour
 {
     
 	public GameObject pathPiece;
+	
+	public GameObject[] pathPieces;
+	
 	public Transform thresholdPoint;
 	
 	// Start is called before the first frame update
@@ -20,8 +23,12 @@ public class PathGeneration : MonoBehaviour
 	    if(transform.position.z < thresholdPoint.transform.position.z)
 	    {
 	    	//copy the path piece and move forward
-	    	Instantiate(pathPiece, transform.position, transform.rotation);
-	    	transform.position += new Vector3(0f, 0f, 2f);
+	    	//Instantiate(pathPiece, transform.position, transform.rotation);
+	    	//transform.position += new Vector3(0f, 0f, 3.2f);
+	    	
+		    //random path gen
+		    Instantiate(pathPieces[Random.Range(0, pathPieces.Length)], transform.position, transform.rotation);
+	    	transform.position += new Vector3(0f, 0f, 3.2f);
 	    }
     }
 }
