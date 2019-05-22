@@ -23,4 +23,10 @@ public class GameManager : MonoBehaviour
 	    _canMove = canMove;
 	    _worldSpeed = worldSpeed;
     }
+    
+	public void HitHazard()
+	{
+		canMove = false;
+		_canMove = false;
+	}
 }

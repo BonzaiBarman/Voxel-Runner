@@ -19,14 +19,16 @@ public class HazardGeneration : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-	    hazardGenCounter -= Time.deltaTime;
-	    
-	    if(hazardGenCounter <= 0)
+	    if(GameManager._canMove)
 	    {
-		    int chosenHazard = Random.Range(0, hazards.Length);
-		    Instantiate(hazards[chosenHazard], transform.position, Quaternion.Euler(0f, Random.Range(-45f, 45f), 0f));
-		    hazardGenCounter = Random.Range(timeBetweenHazards * 0.75f, timeBetweenHazards * 1.25f);
+		    hazardGenCounter -= Time.deltaTime;
+	    
+		    if(hazardGenCounter <= 0)
+		    {
+			    int chosenHazard = Random.Range(0, hazards.Length);
+			    Instantiate(hazards[chosenHazard], transform.position, Quaternion.Euler(0f, Random.Range(-45f, 45f), 0f));
+			    hazardGenCounter = Random.Range(timeBetweenHazards * 0.75f, timeBetweenHazards * 1.25f);
+		    }	    	
 	    }
-
     }
 }
