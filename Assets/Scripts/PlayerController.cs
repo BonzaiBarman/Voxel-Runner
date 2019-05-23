@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     
 	public void OnTriggerEnter(Collider other)
 	{
-		if(other.tag == "Hazards")
+		if(other.gameObject.tag.Equals("Hazards"))
 		{
 			//Debug.Log("Hit Hazard");
 			gm.HitHazard();
@@ -55,6 +55,12 @@ public class PlayerController : MonoBehaviour
 			rg.constraints = RigidbodyConstraints.None;
 			
 			rg.velocity = new Vector3(Random.Range(GameManager._worldSpeed / 2f, -GameManager._worldSpeed / 2f), 2.5f, (-GameManager._worldSpeed / 2f));
+		}
+		
+		if(other.gameObject.tag.Equals("Coin"))
+		{
+			gm.AddCoin();
+			Destroy(other.gameObject);
 		}
 	}
 }
