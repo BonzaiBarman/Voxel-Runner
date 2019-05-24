@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,6 +26,17 @@ public class GameManager : MonoBehaviour
 	private float worldSpeedStore;
 	private float accelerationStore;
 	
+	public GameObject tapMessage;
+	public Text CoinsText;
+	
+	public Text distanceText;
+	private float distanceCovered;
+	
+	public GameObject deathScreen;
+	public Text deathScreenCoins;
+	public Text deathScreenDistance;
+	public float deathScreenDelay;
+	
 	//private bool coinHitThisFrame;
 	
 	// Start is called before the first frame update
@@ -39,6 +51,8 @@ public class GameManager : MonoBehaviour
 	    targetSpeedMultiplier = speedMultiplier;
 	    worldSpeedStore = worldSpeed;
 	    accelerationStore = acceleration;
+	    CoinsText.text = "Coins: " + coinsCollected;
+	    distanceText.text = distanceCovered + "m";
     }
 
     // Update is called once per frame
@@ -52,6 +66,8 @@ public class GameManager : MonoBehaviour
 	    	canMove = true;
 	    	_canMove = true;
 	    	gameStarted = true;
+	    	
+	    	tapMessage.SetActive(false);
 	    }
 	    
 	    //increase speed over time
@@ -69,7 +85,12 @@ public class GameManager : MonoBehaviour
 	    	acceleration = accelerationStore * speedMultiplier;
 	    	speedMultiplier = Mathf.MoveTowards(speedMultiplier, targetSpeedMultiplier, acceleration * Time.deltaTime);
 	    	worldSpeed = worldSpeedStore * speedMultiplier;
+	    	
+	    	//updating distance
+	    	distanceCovered += Time.deltaTime * worldSpeed;
+	    	distanceText.text = Mathf.Floor(distanceCovered) + "m";
 	    }
+	    
 	    //coinHitThisFrame = false;
     }
     
@@ -79,6 +100,18 @@ public class GameManager : MonoBehaviour
 		_canMove = false;
 		
 		PlayerPrefs.SetInt("CoinsCollected", coinsCollected);
+		
+		
+		StartCoroutine("DoDeath");
+
+	}
+	
+	public IEnumerator DoDeath()
+	{
+		yield return new WaitForSeconds(deathScreenDelay);
+		deathScreen.SetActive(true);
+		deathScreenCoins.text = coinsCollected + " coins!";
+		deathScreenDistance.text = Mathf.Floor(distanceCovered) + "m!";		
 	}
 	
 	public void AddCoin()
@@ -88,6 +121,27 @@ public class GameManager : MonoBehaviour
 			coinsCollected++;
 		//coinHitThisFrame = true;			
 		//}
-
+		CoinsText.text = "Coins: " + coinsCollected;
 	}
+	
+	public void ContinueGame()
+	{
+		
+	}
+	
+	public void Restart()
+	{
+		
+	}
+	
+	public void GetCoins()
+	{
+		
+	}
+	
+	public void MainMenu()
+	{
+		
+	}
+	
 }
