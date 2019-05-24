@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -36,6 +37,13 @@ public class GameManager : MonoBehaviour
 	public Text deathScreenCoins;
 	public Text deathScreenDistance;
 	public float deathScreenDelay;
+	public GameObject notEnoughCoinsScreen;
+	
+	public string mainMenuName;
+	
+	public PlayerController player;
+	
+	public GameObject pauseScreen;
 	
 	//private bool coinHitThisFrame;
 	
@@ -103,6 +111,7 @@ public class GameManager : MonoBehaviour
 		
 		
 		StartCoroutine("DoDeath");
+		coinsCollected += 100;
 
 	}
 	
@@ -126,12 +135,23 @@ public class GameManager : MonoBehaviour
 	
 	public void ContinueGame()
 	{
-		
+		if(coinsCollected >= 100)
+		{
+			coinsCollected -= 100;
+			canMove = true;
+			_canMove = true;
+			deathScreen.SetActive(false);
+			player.ResetPlayer();
+		}
+		else
+		{
+			notEnoughCoinsScreen.SetActive(true);
+		}
 	}
 	
 	public void Restart()
 	{
-		
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 	
 	public void GetCoins()
@@ -141,7 +161,40 @@ public class GameManager : MonoBehaviour
 	
 	public void MainMenu()
 	{
+		SceneManager.LoadScene(mainMenuName);
+		Time.timeScale = 1f;
+	}
+	
+	public void CloseNotEnoughCoins()
+	{
+		notEnoughCoinsScreen.SetActive(false);
+	}
+	
+	public void ResumeGame()
+	{
+		pauseScreen.SetActive(false);
+		//canMove = true;
+		//_canMove = true;
+		Time.timeScale = 1f;
+	}
+	
+	public void PauseGame()
+	{
 		
+		if(Time.timeScale == 1)
+		{
+			pauseScreen.SetActive(true);
+			Time.timeScale = 0f;
+		}
+		else
+		{
+			pauseScreen.SetActive(false);			
+			Time.timeScale = 1f;
+		}
+
+		//canMove = false;
+		//_canMove = false;
+
 	}
 	
 }

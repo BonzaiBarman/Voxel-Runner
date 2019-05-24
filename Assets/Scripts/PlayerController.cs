@@ -17,10 +17,18 @@ public class PlayerController : MonoBehaviour
 	
 	public Animator anim;
 	
+	private Vector3 startPosition;
+	private Quaternion startRotation;
+	
+	public float invincibleTime;
+	private float invincibleTimer;
+	
+	
 	// Start is called before the first frame update
     void Start()
     {
-
+	    startPosition = transform.position;
+	    startRotation = transform.rotation;
     }
 
     // Update is called once per frame
@@ -40,6 +48,13 @@ public class PlayerController : MonoBehaviour
 			    }		    	
 		    }
 	    }
+	    
+	    //control invincibility
+	    if(invincibleTimer > 0)
+	    {
+	    	invincibleTimer -= Time.deltaTime;
+	    }
+	    
 	    //control animations
 	    anim.SetBool("walking", gm.canMove);
 	    anim.SetBool("onGround", onGround);
@@ -47,14 +62,17 @@ public class PlayerController : MonoBehaviour
     
 	public void OnTriggerEnter(Collider other)
 	{
-		if(other.gameObject.tag.Equals("Hazards"))
+		if(invincibleTimer <= 0)
 		{
-			//Debug.Log("Hit Hazard");
-			gm.HitHazard();
+			if(other.gameObject.tag.Equals("Hazards"))
+			{
+				//Debug.Log("Hit Hazard");
+				gm.HitHazard();				
 			
-			rg.constraints = RigidbodyConstraints.None;
+				rg.constraints = RigidbodyConstraints.None;
 			
-			rg.velocity = new Vector3(Random.Range(GameManager._worldSpeed / 2f, -GameManager._worldSpeed / 2f), 2.5f, (-GameManager._worldSpeed / 2f));
+				rg.velocity = new Vector3(Random.Range(GameManager._worldSpeed / 2f, -GameManager._worldSpeed / 2f), 2.5f, (-GameManager._worldSpeed / 2f));
+			}			
 		}
 		
 		if(other.gameObject.tag.Equals("Coin"))
@@ -63,4 +81,15 @@ public class PlayerController : MonoBehaviour
 			Destroy(other.gameObject);
 		}
 	}
+	
+	public void ResetPlayer()
+	{
+		rg.constraints = RigidbodyConstraints.FreezeRotation;
+		transform.rotation = startRotation;
+		transform.position = startPosition;
+		
+		invincibleTimer = invincibleTime;
+	}
+	
+	
 }
