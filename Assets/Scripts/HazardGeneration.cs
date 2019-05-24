@@ -10,6 +10,8 @@ public class HazardGeneration : MonoBehaviour
 	public float timeBetweenHazards;
 	private float hazardGenCounter;
 	
+	public GameManager gm;
+	
 	// Start is called before the first frame update
     void Start()
     {
@@ -19,7 +21,7 @@ public class HazardGeneration : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-	    if(GameManager._canMove)
+	    if(gm.canMove)
 	    {
 		    hazardGenCounter -= Time.deltaTime;
 	    
@@ -27,7 +29,11 @@ public class HazardGeneration : MonoBehaviour
 		    {
 			    int chosenHazard = Random.Range(0, hazards.Length);
 			    Instantiate(hazards[chosenHazard], transform.position, Quaternion.Euler(0f, Random.Range(-45f, 45f), 0f));
+			    
 			    hazardGenCounter = Random.Range(timeBetweenHazards * 0.75f, timeBetweenHazards * 1.25f);
+			    
+			    //increase difficulty
+			    hazardGenCounter = hazardGenCounter / gm.speedMultiplier;
 		    }	    	
 	    }
     }
