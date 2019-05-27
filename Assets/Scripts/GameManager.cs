@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Advertisements;
 
 public class GameManager : MonoBehaviour
 {
@@ -128,7 +129,6 @@ public class GameManager : MonoBehaviour
 		
 		
 		StartCoroutine("DoDeath");
-		coinsCollected += 100;
 
 	}
 	
@@ -157,6 +157,8 @@ public class GameManager : MonoBehaviour
 		if(coinsCollected >= 100)
 		{
 			coinsCollected -= 100;
+			PlayerPrefs.SetInt("CoinsCollected", coinsCollected);
+			UpdateCoins();
 			canMove = true;
 			_canMove = true;
 			deathScreen.SetActive(false);
@@ -178,7 +180,7 @@ public class GameManager : MonoBehaviour
 	
 	public void GetCoins()
 	{
-		
+		Advertisement.Show("rewardedVideo");
 	}
 	
 	public void MainMenu()
@@ -214,9 +216,12 @@ public class GameManager : MonoBehaviour
 			Time.timeScale = 1f;
 		}
 
-		//canMove = false;
-		//_canMove = false;
-
+	}
+	
+	public void UpdateCoins()
+	{
+		CoinsText.text = "Coins: " + coinsCollected;
+		deathScreenCoins.text = coinsCollected + " coins!";
 	}
 	
 }

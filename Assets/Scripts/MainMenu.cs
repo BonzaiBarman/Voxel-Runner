@@ -28,14 +28,19 @@ public class MainMenu : MonoBehaviour
 	public Text coinsText;
 	
 	public int curCoins;
+	//public string gameId = "3164006";
+	//public string myPlacementId = "rewardedVideo";
+	//public bool testMode = true;
 	
 	// Start is called before the first frame update
     void Start()
     {
+	    //Advertisement.AddListener(this);
+	    //Advertisement.Initialize(gameId, testMode);
+	    
 	    if(PlayerPrefs.HasKey("CoinsCollected"))
 	    {
 		    curCoins = PlayerPrefs.GetInt("CoinsCollected");
-		    curCoins += 500;
 	    }
 	    else
 	    {
@@ -58,21 +63,22 @@ public class MainMenu : MonoBehaviour
 	    theCamera.position = Vector3.Lerp(theCamera.position, camTargetPos, cameraSpeed * Time.deltaTime);
 	    //theCamera.position = Vector3.MoveTowards(theCamera.position, camTargetPos, cameraSpeed * Time.deltaTime);
 	    //coinsText.text = "Coins: " + curCoins;
-	    //#if UNITY_EDITOR
-	    //if(Input.GetKeyDown(KeyCode.L))
-	    //{
-	    //	foreach(GameObject chr in theChars)
-	    //	{
-	    //		PlayerPrefs.SetInt(chr.name, 0);
-	    //	}
-	    //	PlayerPrefs.SetInt(theChars[0].name, 1);
-	    //	UnlockedCheck();
-	    //}
-	    //#endif
+	    #if UNITY_EDITOR
+	    if(Input.GetKeyDown(KeyCode.L))
+	    {
+	    	foreach(GameObject chr in theChars)
+	    	{
+	    		PlayerPrefs.SetInt(chr.name, 0);
+	    	}
+	    	PlayerPrefs.SetInt(theChars[0].name, 1);
+	    	UnlockedCheck();
+	    }
+	    #endif
     }
     
 	public void PlayGame()
 	{
+		Advertisement.Show();
 		SceneManager.LoadScene(levelToLoad);
 		//SceneManager.UnloadScene(this);
 	}
@@ -158,5 +164,10 @@ public class MainMenu : MonoBehaviour
 		PlayGame();
 	}
 	
+	public void UpdateCoins()
+	{
+		coinsText.text = "Coins: " + curCoins;
+	}
+
 	
 }

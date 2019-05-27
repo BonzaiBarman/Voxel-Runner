@@ -1690,8 +1690,9 @@ GameObject:
   - component: {fileID: 1476545720}
   - component: {fileID: 1476545719}
   - component: {fileID: 1476545718}
+  - component: {fileID: 1476545721}
   m_Layer: 5
-  m_Name: GetCoins
+  m_Name: RewardedAdsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1759,18 +1760,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1476545719}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1783286559}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1476545719
@@ -1810,6 +1800,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1476545716}
   m_CullTransparentMesh: 0
+--- !u!114 &1476545721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476545716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67cdda053a477e142b10f7bd93b54aeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myPlacementId: rewardedVideo
+  gameInfo: {fileID: 1783286559}
 --- !u!1 &1486037899
 GameObject:
   m_ObjectHideFlags: 0
@@ -3029,6 +3033,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 988506767295707800, guid: 2659ab3a2aa93e942b7c398fa387ca87,
+        type: 3}
+      propertyPath: musicImage
+      value: 
+      objectReference: {fileID: 1374681225}
     - target: {fileID: 988506767295707801, guid: 2659ab3a2aa93e942b7c398fa387ca87,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3084,11 +3093,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 988506767295707800, guid: 2659ab3a2aa93e942b7c398fa387ca87,
-        type: 3}
-      propertyPath: musicImage
-      value: 
-      objectReference: {fileID: 1374681225}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2659ab3a2aa93e942b7c398fa387ca87, type: 3}
 --- !u!1001 &1302794159015975165
