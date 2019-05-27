@@ -23,6 +23,9 @@ public class PlayerController : MonoBehaviour
 	public float invincibleTime;
 	private float invincibleTimer;
 	
+	public AudioManager theAM;
+	
+	public GameObject coinFX;
 	
 	// Start is called before the first frame update
     void Start()
@@ -45,6 +48,7 @@ public class PlayerController : MonoBehaviour
 			    {
 				    //make player jump
 				    rg.velocity = new Vector3(0f, jumpForce, 0f);
+				    theAM.jumpSfx.Play();
 			    }		    	
 		    }
 	    }
@@ -72,13 +76,19 @@ public class PlayerController : MonoBehaviour
 				rg.constraints = RigidbodyConstraints.None;
 			
 				rg.velocity = new Vector3(Random.Range(GameManager._worldSpeed / 2f, -GameManager._worldSpeed / 2f), 2.5f, (-GameManager._worldSpeed / 2f));
+				
+				theAM.hitSfx.Play();
 			}			
 		}
 		
 		if(other.gameObject.tag.Equals("Coin"))
 		{
 			gm.AddCoin();
+			
+			Instantiate(coinFX, other.transform.position, other.transform.rotation);
 			Destroy(other.gameObject);
+			theAM.coinSfx.Stop();
+			theAM.coinSfx.Play();
 		}
 	}
 	

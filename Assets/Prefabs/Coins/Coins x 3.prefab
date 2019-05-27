@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3123493444706479996}
+  - component: {fileID: 1830947134212732583}
   m_Layer: 0
   m_Name: Coins x 3
   m_TagString: Untagged
@@ -33,6 +34,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1830947134212732583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2868347455231827431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8334138f1d86ea645b79beabc444cda1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3105424790773292866
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -100,7 +113,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6330480866151371066, guid: 1b08c57379c52eb41ba9d341f283533e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1b08c57379c52eb41ba9d341f283533e, type: 3}
 --- !u!4 &1135836867999709337 stripped
 Transform:
@@ -175,7 +189,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6330480866151371066, guid: 1b08c57379c52eb41ba9d341f283533e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1b08c57379c52eb41ba9d341f283533e, type: 3}
 --- !u!4 &7678339508523349654 stripped
 Transform:
@@ -250,7 +265,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6330480866151371066, guid: 1b08c57379c52eb41ba9d341f283533e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1b08c57379c52eb41ba9d341f283533e, type: 3}
 --- !u!4 &8351306430462596462 stripped
 Transform:

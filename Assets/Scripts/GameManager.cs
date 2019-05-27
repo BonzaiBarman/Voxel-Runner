@@ -45,6 +45,11 @@ public class GameManager : MonoBehaviour
 	
 	public GameObject pauseScreen;
 	
+	public GameObject[] models;
+	public GameObject defaultChar;
+	
+	public AudioManager theAM;
+	
 	//private bool coinHitThisFrame;
 	
 	// Start is called before the first frame update
@@ -61,6 +66,18 @@ public class GameManager : MonoBehaviour
 	    accelerationStore = acceleration;
 	    CoinsText.text = "Coins: " + coinsCollected;
 	    distanceText.text = distanceCovered + "m";
+	    
+	    //load correct model
+	    foreach(GameObject mdl in models)
+	    {
+	    	if(mdl.name == PlayerPrefs.GetString("SelectedChar"))
+	    	{
+	    		GameObject clone = Instantiate(mdl, player.modelHolder.position, player.modelHolder.rotation);
+	    		clone.transform.parent = player.modelHolder;
+	    		defaultChar.SetActive(false);
+	    	}	
+	    }
+	    
     }
 
     // Update is called once per frame
@@ -117,7 +134,9 @@ public class GameManager : MonoBehaviour
 	
 	public IEnumerator DoDeath()
 	{
+		theAM.StopMusic();
 		yield return new WaitForSeconds(deathScreenDelay);
+		theAM.gameOverMusic.Play();
 		deathScreen.SetActive(true);
 		deathScreenCoins.text = coinsCollected + " coins!";
 		deathScreenDistance.text = Mathf.Floor(distanceCovered) + "m!";		
@@ -142,6 +161,9 @@ public class GameManager : MonoBehaviour
 			_canMove = true;
 			deathScreen.SetActive(false);
 			player.ResetPlayer();
+			
+			theAM.StopMusic();
+			theAM.gameMusic.Play();
 		}
 		else
 		{
